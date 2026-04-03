@@ -25,7 +25,7 @@ st.markdown(f"""
     <style>
     /* Main App Background */
     .stApp {{ 
-        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.8)), url("{OKC_COURT_URL}");
+        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.6)), url("{OKC_COURT_URL}");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -80,9 +80,9 @@ st.markdown(f"""
     }}
     
     [data-testid="stSidebar"] > div:first-child {{
-        background-color: rgba(10, 12, 16, 0.6) !important;
+        background-color: rgba(10, 12, 16, 0.3) !important;
         height: 100%;
-        backdrop-filter: blur(3px); 
+        backdrop-filter: blur(1.0px); 
     }}
 
     /* --- SIDEBAR NAVIGATION BUTTONS --- */
@@ -177,7 +177,7 @@ def simulate_elite_hoops(h_stats, a_stats, hca_value):
 # --- 4. SIDEBAR ---
 with st.sidebar:
     st.image("https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-design.jpg", width=80)
-    st.title("GLOBAL CONTROL")
+    st.title("🎮 GLOBAL CONTROL")
     st.markdown("---")
     t1_name = st.text_input("Home Team", "Hornets")
     t2_name = st.text_input("Away Team", "Pacers")
@@ -186,7 +186,7 @@ with st.sidebar:
     run_btn = st.button("🔥 RUN ELITE ANALYTICS", use_container_width=True)
 
 # --- 5. MAIN UI ---
-st.markdown("<h1 style='font-size:3.8rem;'>Omni_Predict Elite V1</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size:3.8rem;'>NBA Predict Elite V1</h1>", unsafe_allow_html=True)
 
 if run_btn:
     with st.spinner("Crunching 10,000 Iterations..."):

@@ -28,7 +28,7 @@ st.markdown(f"""
     <style>
     /* Main App Background */
     .stApp {{ 
-        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.8)), url("{FUT_BCG_URL}");
+        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.6)), url("{FUT_BCG_URL}");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -56,7 +56,7 @@ st.markdown(f"""
     /* 1. Darken the sidebar overlay even more */
     [data-testid="stSidebar"] > div:first-child {{
         background-color: rgba(0, 0, 0, 0.95) !important;
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(10px);
     }}
 
     /* 2. Fix the "Home Team" / "Away Team" Labels */
@@ -83,9 +83,9 @@ st.markdown(f"""
     }}
     
     [data-testid="stSidebar"] > div:first-child {{
-        background-color: rgba(10, 12, 16, 0.6) !important;
+        background-color: rgba(10, 12, 16, 0.3) !important;
         height: 100%;
-        backdrop-filter: blur(3px); 
+        backdrop-filter: blur(1.2px); 
     }}
 
     /* --- SIDEBAR NAVIGATION BUTTONS --- */
@@ -121,6 +121,14 @@ st.markdown(f"""
         font-size: 1.1rem !important;
         text-transform: uppercase;
     }}
+    
+     [data-testid="stTab"] {{
+        color: #ffffff !important;
+        font-weight: 900 !important;
+        text-shadow: 3px 3px 6px #000000 !important;
+        font-size: 1.1rem !important;
+        text-transform: uppercase;
+     }}
 
     /* Metric Values (The numbers) */
     [data-testid="stMetricValue"] {{ 
@@ -236,6 +244,14 @@ ELITE_DB = {
     "GLADBACH": [1.50, 1.7], "WERDER BREMEN": [1.40, 1.6], "AUGSBURG": [1.30, 1.7],
     "MAINZ": [1.25, 1.4], "HEIDENHEIM": [1.35, 1.6], "UNION BERLIN": [1.10, 1.2],
     "BOCHUM": [1.15, 2.1], "ST PAULI": [1.15, 1.6], "KIEL": [1.10, 1.9],
+    
+    "GALATASARAY": [2.45, 0.72], "FENERBAHCE": [2.10, 1.15], "TRABZONSPOR": [1.95, 1.05],
+    "BESIKTAS": [1.80, 1.20], "BASAKSEHIR": [1.55, 1.10], "KASIMPASA": [1.65, 1.85],
+    "SIVASSPOR": [1.30, 1.55], "ALANYASPOR": [1.25, 1.40], "ANTALYASPOR": [1.25, 1.30],
+    "RIZESPOR": [1.15, 1.45], "ADANA DEMIRSPOR": [1.45, 1.70], "SAMSUNSPOR": [1.15, 1.25],
+    "KAYSERISPOR": [1.10, 1.35], "HATAYSPOR": [1.05, 1.50], "KONYASPOR": [1.00, 1.30],
+    "GAZIANTEP": [1.12, 1.60], "GOZTEPE": [1.20, 1.40], "EYUPSPOR": [1.35, 1.35],
+    "BODRUM FK": [0.95, 1.45], "KAYSERISPOR": [1.08, 1.52],
 
     # --- BUNDESLIGA 2 & PROMOTION CONTENDERS ---
     "HAMBURGER SV": [1.85, 1.4], "SCHALKE": [1.55, 1.8], "HERTHA BERLIN": [1.70, 1.6],
@@ -307,7 +323,7 @@ ELITE_DB = {
     "GEORGIA": [1.45, 1.40], "JAMAICA": [1.30, 1.35], "VENEZUELA": [1.25, 1.10],
     "BOLIVIA": [1.10, 1.80], "SYRIA": [1.15, 1.30], "NEW ZEALAND": [1.20, 1.40],
     "THAILAND": [1.25, 1.60], "VIETNAM": [1.10, 1.55],
-
+    
     "DEFAULT": [1.35, 1.35]
 }
 
@@ -338,7 +354,38 @@ def run_simulation(h_stats, a_stats, sport, h_adv):
 
 # --- SIDEBAR ---
 with st.sidebar:
-    st.title("🕹️ GLOBAL CONTROL")
+    # 1. Define your logo URLs in a list
+    # You can add as many as you want here
+    logos = [
+        "https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/UEFA_Champions_League.svg/500px-UEFA_Champions_League.svg.png",
+        "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/500px-Premier_League_Logo.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LaLiga_logo_2023.svg/500px-LaLiga_logo_2023.svg.png?_=20230606084527",
+        "https://logolook.net/wp-content/uploads/2024/05/Bundesliga-Logo.png"
+        "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Serie_A_ENILIVE_logo.svg/330px-Serie_A_ENILIVE_logo.svg.png"
+        
+    ]
+
+    # 2. OPTIONAL: Add some CSS to center them and add a glow
+    st.markdown("""
+        <style>
+        [data-testid="column"] img {
+            border-radius: 10px;
+            padding: 4px;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 204, 0.4));
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # 3. Create the row of logos
+    st.write("### Featured Matchups")
+    cols = st.columns(len(logos))
+
+    for i, url in enumerate(logos):
+        with cols[i]:
+            st.image(url, use_container_width=True)
+            
+            
+    st.title("🎮 GLOBAL CONTROL")
     sport = st.selectbox("Select Sport", ["Football", "Rugby", "Tennis", "American Football"])
     t1_in = st.text_input("Home / P1", "Sporting CP")
     t2_in = st.text_input("Away / P2", "Real Madrid")

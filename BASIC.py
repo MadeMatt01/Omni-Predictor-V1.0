@@ -28,7 +28,7 @@ st.markdown(f"""
     <style>
     /* Main App Background */
     .stApp {{ 
-        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.8)), url("{FUT_BCG_URL}");
+        background-image: linear-gradient(rgba(14, 17, 23, 0.8), rgba(14, 17, 23, 0.6)), url("{FUT_BCG_URL}");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -78,14 +78,14 @@ st.markdown(f"""
     [data-testid="stSidebar"] .stMarkdown p, 
     [data-testid="stSidebar"] span {{
         color: #ffffff !important;
-        font-weight: 700 !important;
-        text-shadow: 2px 2px 4px #000 !important;
+        font-weight: 900 !important;
+        text-shadow: 1px 1px 2px #000 !important;
     }}
     
     [data-testid="stSidebar"] > div:first-child {{
-        background-color: rgba(10, 12, 16, 0.6) !important;
+        background-color: rgba(10, 12, 16, 0.3) !important;
         height: 100%;
-        backdrop-filter: blur(3px); 
+        backdrop-filter: blur(1.3px); 
     }}
 
     /* --- SIDEBAR NAVIGATION BUTTONS --- */
@@ -105,6 +105,7 @@ st.markdown(f"""
     /* --- RESULTS CARD VISIBILITY UPGRADE --- */
     .results-card {{
         background-color: rgba(10, 12, 16, 0.95) !important; /* Much darker background for text contrast */
+        color: #ffffff !important;
         padding: 30px;
         border-radius: 20px;
         border: 2px solid rgba(0, 255, 204, 0.6);
@@ -121,7 +122,14 @@ st.markdown(f"""
         font-size: 1.1rem !important;
         text-transform: uppercase;
     }}
-
+    [data-testid="stTab"] {{
+        color: #ffffff !important;
+        font-weight: 900 !important;
+        text-shadow: 3px 3px 6px #000000 !important;
+        font-size: 1.1rem !important;
+        text-transform: uppercase;
+    }}
+    
     /* Metric Values (The numbers) */
     [data-testid="stMetricValue"] {{ 
         color: #00ffcc !important; 
@@ -147,6 +155,8 @@ st.markdown(f"""
     }}
     </style>
     """, unsafe_allow_html=True)
+
+
 
 # --- ADVANCED MATH ENGINE ---
 def calculate_advanced_prediction(h_mean, a_mean, line, sport_mode):
@@ -249,6 +259,36 @@ MOK_DB = {
 }
 # --- SIDEBAR ---
 with st.sidebar:
+    # 1. Define your logo URLs in a list
+    # You can add as many as you want here
+    logos = [
+        "https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/UEFA_Champions_League.svg/500px-UEFA_Champions_League.svg.png",
+        "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/500px-Premier_League_Logo.svg.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LaLiga_logo_2023.svg/500px-LaLiga_logo_2023.svg.png?_=20230606084527",
+        "https://logolook.net/wp-content/uploads/2024/05/Bundesliga-Logo.png"
+        "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Serie_A_ENILIVE_logo.svg/330px-Serie_A_ENILIVE_logo.svg.png"
+        
+    ]
+
+    # 2. OPTIONAL: Add some CSS to center them and add a glow
+    st.markdown("""
+        <style>
+        [data-testid="column"] img {
+            border-radius: 10px;
+            padding: 4px;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 204, 0.4));
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # 3. Create the row of logos
+    st.write("### Featured Matchups")
+    cols = st.columns(len(logos))
+
+    for i, url in enumerate(logos):
+        with cols[i]:
+            st.image(url, use_container_width=True)
+        
     st.title("🎮 GLOBAL CONTROL")
     sport_mode = st.selectbox("Select Sport", ["Football", "Basketball"])
     st.subheader("⚔️ Matchup")
@@ -295,7 +335,7 @@ with streamlit_analytics.track():
                 # Using adjusted means for the matrix to match the math engine
                 h_adj, a_adj = h_stat + 0.2, a_stat - 0.2
                 matrix_data = [[(poisson.pmf(h, h_adj)*poisson.pmf(a, a_adj))*100 for a in range(6)] for h in range(6)]
-                df = pd.DataFrame(matrix_data, index=[f"Home {i}" for i in range(6)], columns=[f"Away {i}" for i in range(6)])
+                df = pd.DataFrame(matrix_data, index=[f"{i}" for i in range(6)], columns=[f"{i}" for i in range(6)])
                 fig, ax = plt.subplots(figsize=(10, 4))
                 fig.patch.set_facecolor('#0e1117')
                 ax.set_facecolor('#0e1117')
