@@ -182,7 +182,7 @@ with st.sidebar:
     t1_name = st.text_input("Home Team", "Hornets")
     t2_name = st.text_input("Away Team", "Pacers")
     hca_slider = st.slider("Home Court Advantage (Pts)", 0.0, 7.0, 2.5, 0.5)
-    target_line = st.number_input("Total O/U Line", value=220.5)
+    target_line = st.number_input("Total O/U Line", value=230.5)
     run_btn = st.button("🔥 RUN ELITE ANALYTICS", use_container_width=True)
 
 # --- 5. MAIN UI ---

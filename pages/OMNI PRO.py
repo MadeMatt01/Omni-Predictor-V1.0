@@ -22,7 +22,7 @@ SLIDES = {
     "nico": "https://www.idman.biz/media/2026/03/05/1920x1280/niko.webp?v=1772697116"
 }
 
-FUT_BCG_URL = "https://www.stonexsl.com/wp-content/uploads/2024/02/O9A6295-sml-scaled.jpg"
+FUT_BCG_URL = "https://www.kellwoodlighting.co.uk/media/uploads/cat-481/stadium-floodlight-design.webp?Width=1024&Height=573"
 
 st.markdown(f"""
     <style>
@@ -324,7 +324,7 @@ ELITE_DB = {
     "BOLIVIA": [1.10, 1.80], "SYRIA": [1.15, 1.30], "NEW ZEALAND": [1.20, 1.40],
     "THAILAND": [1.25, 1.60], "VIETNAM": [1.10, 1.55],
     
-    "DEFAULT": [1.35, 1.35]
+    "DEFAULT": [1.10, 1.10]
 }
 
 # --- THE SCOUT ENGINE ---
@@ -389,7 +389,7 @@ with st.sidebar:
     sport = st.selectbox("Select Sport", ["Football", "Rugby", "Tennis", "American Football"])
     t1_in = st.text_input("Home / P1", "Sporting CP")
     t2_in = st.text_input("Away / P2", "Real Madrid")
-    h_adv_input = st.slider("Home Advantage Boost", 1.0, 1.3, 1.1)
+    h_adv_input = st.slider("Home Advantage Boost", 1.0, 2.0, 1.5)
     
     line_map = {"Football": 2.5, "Rugby": 44.5, "Tennis": 21.5, "American Football": 46.5}
     m_line = st.number_input("Main O/U Line", value=line_map[sport])

@@ -22,7 +22,7 @@ SLIDES = {
     "nico": "https://www.idman.biz/media/2026/03/05/1920x1280/niko.webp?v=1772697116"
 }
 
-FUT_BCG_URL = "https://www.stonexsl.com/wp-content/uploads/2024/02/O9A6295-sml-scaled.jpg"
+FUT_BCG_URL = "https://www.kellwoodlighting.co.uk/media/uploads/cat-481/stadium-floodlight-design.webp?Width=1024&Height=573"
 
 st.markdown(f"""
     <style>
@@ -254,8 +254,10 @@ MOK_DB = {
         "psv": 2.50, "feyenoord": 2.15, "ajax": 1.95, "az alkmaar": 1.80,
         "sporting cp": 2.45, "benfica": 2.10, "fc porto": 1.95, "braga": 1.80,
         "galatasaray": 2.20, "fenerbahce": 2.15, "besiktas": 1.90,
-        "celtic": 2.35, "rangers": 2.05, "bodø glimt": 2.10, "shakhtar": 1.85
-    }
+        "celtic": 2.35, "rangers": 2.05, "bodø glimt": 2.10, "shakhtar": 1.85,
+        
+        "DEFAULT": 1.20
+    },
 }
 # --- SIDEBAR ---
 with st.sidebar:
@@ -296,8 +298,8 @@ with st.sidebar:
     t2_in = st.text_input("Away Team", "Barcelona").lower().strip()
     
     db = MOK_DB.get(sport_mode, {})
-    h_db = db.get(t1_in, 1.5 if sport_mode == "Football" else 114.0)
-    a_db = db.get(t2_in, 1.5 if sport_mode == "Football" else 114.0)
+    h_db = db.get(t1_in, 1.1 if sport_mode == "Football" else 114.0)
+    a_db = db.get(t2_in, 1.1 if sport_mode == "Football" else 114.0)
     
     h_stat = st.number_input(f"Home {sport_mode} Avg", value=float(h_db))
     a_stat = st.number_input(f"Away {sport_mode} Avg", value=float(a_db))
